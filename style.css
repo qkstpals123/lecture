@@ -1,1 +1,204 @@
-/* Add styles here */
+:root {
+    /* Pastel Palette using OKLCH */
+    --bg-color: oklch(97% 0.02 95);
+    --card-bg: oklch(100% 0 0 / 0.8);
+    --accent-pink: oklch(85% 0.08 340);
+    --accent-yellow: oklch(92% 0.10 80);
+    --accent-blue: oklch(90% 0.06 200);
+    --text-main: oklch(35% 0.02 300);
+    --text-soft: oklch(50% 0.02 300);
+    
+    --shadow-soft: 0 12px 40px oklch(20% 0.05 300 / 0.1);
+    --glow-pink: 0 0 15px oklch(85% 0.08 340 / 0.4);
+    
+    --font-heading: 'Pacifico', cursive;
+    --font-body: 'Quicksand', sans-serif;
+}
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    background-color: var(--bg-color);
+    font-family: var(--font-body);
+    color: var(--text-main);
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow-x: hidden;
+    position: relative;
+}
+
+/* Subtle Noise Texture */
+.noise-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    opacity: 0.03;
+    z-index: 9999;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
+}
+
+.app-container {
+    width: 100%;
+    max-width: 500px;
+    padding: 2rem;
+    z-index: 10;
+    text-align: center;
+}
+
+.header {
+    margin-bottom: 2rem;
+}
+
+.title {
+    font-family: var(--font-heading);
+    font-size: 3rem;
+    color: var(--accent-pink);
+    text-shadow: 2px 2px 0 oklch(100% 0 0);
+    margin-bottom: 0.5rem;
+}
+
+.subtitle {
+    font-size: 1.1rem;
+    color: var(--text-soft);
+    font-weight: 500;
+}
+
+.dday-card {
+    background: var(--card-bg);
+    backdrop-filter: blur(10px);
+    border-radius: 30px;
+    padding: 3rem 2rem;
+    box-shadow: var(--shadow-soft);
+    position: relative;
+    border: 2px solid oklch(100% 0 0 / 0.5);
+}
+
+.dessert-decoration {
+    position: absolute;
+    font-size: 2.5rem;
+    filter: drop-shadow(2px 4px 6px rgba(0,0,0,0.1));
+    user-select: none;
+    animation: float 4s ease-in-out infinite;
+}
+
+.donut { top: -20px; left: -20px; animation-delay: 0s; }
+.cake { top: -25px; right: -25px; animation-delay: 1s; }
+.taiyaki { bottom: -20px; left: 50%; transform: translateX(-50%); animation-delay: 2s; }
+
+@keyframes float {
+    0%, 100% { transform: translateY(0) rotate(0); }
+    50% { transform: translateY(-10px) rotate(10deg); }
+}
+
+.input-group {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+    margin-bottom: 2rem;
+}
+
+.label {
+    font-weight: 700;
+    color: var(--text-main);
+}
+
+.date-input {
+    border: 2px solid var(--accent-blue);
+    border-radius: 15px;
+    padding: 1rem;
+    font-family: var(--font-body);
+    font-size: 1rem;
+    color: var(--text-main);
+    background: white;
+    outline: none;
+    transition: all 0.3s ease;
+}
+
+.date-input:focus {
+    border-color: var(--accent-pink);
+    box-shadow: var(--glow-pink);
+}
+
+.confirm-btn {
+    background: var(--accent-pink);
+    color: white;
+    border: none;
+    border-radius: 15px;
+    padding: 1rem;
+    font-family: var(--font-body);
+    font-weight: 700;
+    font-size: 1.1rem;
+    cursor: pointer;
+    transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    box-shadow: 0 4px 15px oklch(85% 0.08 340 / 0.3);
+}
+
+.confirm-btn:hover {
+    transform: scale(1.05);
+    background: oklch(80% 0.1 340);
+    box-shadow: 0 6px 20px oklch(85% 0.08 340 / 0.5);
+}
+
+.confirm-btn:active {
+    transform: scale(0.95);
+}
+
+.result-container {
+    margin-top: 1rem;
+    padding-top: 2rem;
+    border-top: 1px dashed var(--accent-blue);
+    animation: fadeIn 0.5s ease-out;
+}
+
+.result-container.hidden {
+    display: none;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(10px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+.result-title {
+    font-size: 1.2rem;
+    color: var(--text-soft);
+    margin-bottom: 0.5rem;
+}
+
+.dday-value {
+    font-family: var(--font-heading);
+    font-size: 4rem;
+    color: var(--accent-pink);
+    line-height: 1;
+    margin-bottom: 1rem;
+}
+
+.dday-message {
+    font-weight: 500;
+    color: var(--text-soft);
+}
+
+.footer {
+    margin-top: 2rem;
+    font-size: 0.9rem;
+    color: var(--text-soft);
+}
+
+/* Responsive adjustments */
+@container (max-width: 400px) {
+    .title { font-size: 2.5rem; }
+    .dday-card { padding: 2rem 1rem; }
+}
+
+@media (max-width: 600px) {
+    .app-container { padding: 1rem; }
+}
